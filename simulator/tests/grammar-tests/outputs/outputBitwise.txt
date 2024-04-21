@@ -1,0 +1,78 @@
+Program
+Program_code
+Declaration
+Simple_declaration, i
+Var_type, int
+Expression, 1
+Program_code
+Function, setup
+Var_type, void
+Sentence
+Assignment
+Expression, i
+Expression, &
+Expression, 1
+Expression, 27
+Sentence
+Assignment
+Expression, i
+Expression, <<
+Expression, 1
+Expression, 3
+Sentence
+Assignment
+Expression, i
+Expression, >>
+Expression, 27
+Expression, 4
+Sentence
+Assignment
+Expression, i
+Expression, ^
+Expression, 2
+Expression, 3
+Sentence
+Assignment
+Expression, i
+Expression, |
+Expression, 1
+Expression, 2
+Sentence
+Assignment
+Expression, i
+Expression, ~
+Expression, 1
+Program_code
+Function, loop
+Var_type, void
+Sentence
+Expression, print(1&2<<3>>4^5|6)
+Expression, print
+Parameter
+Expression, |
+Expression, ^
+Expression, &
+Expression, 1
+Expression, >>
+Expression, <<
+Expression, 2
+Expression, 3
+Expression, 4
+Expression, 5
+Expression, 6
+Sentence
+Expression, print(1&2<<3>>4^(5|6))
+Expression, print
+Parameter
+Expression, ^
+Expression, &
+Expression, 1
+Expression, >>
+Expression, <<
+Expression, 2
+Expression, 3
+Expression, 4
+Expression, (5|6)
+Expression, |
+Expression, 5
+Expression, 6

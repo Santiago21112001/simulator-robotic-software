@@ -1,0 +1,19 @@
+int x;
+
+void setup(){
+    x = 100;
+}
+
+void loop(){
+    if (x > 120) digitalWrite(LEDpin, HIGH);
+
+    if (x > 120)
+        digitalWrite(LEDpin, HIGH);
+
+    if (x > 120) {digitalWrite(LEDpin, HIGH);}
+
+    if (x > 120) {
+        digitalWrite(LEDpin1, HIGH);
+        digitalWrite(LEDpin2, HIGH);
+    }
+}

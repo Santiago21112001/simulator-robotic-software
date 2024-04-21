@@ -613,7 +613,20 @@ class Circuit:
         Creates and draws a circuit
         """
         self.create_straights()
+        #self.create_pieces()
         self.draw_circuit()
+
+    def create_pieces(self):
+        for part in self.parts:
+            x1 = part['x1']
+            y1 = part['y1']
+            x2 = part['x2']
+            y2 = part['y2']
+            part_type = part['type']
+            if part_type == 'turn1':
+                self.__create_turn()
+            else:
+                pass
 
     def create_straights(self):
         """

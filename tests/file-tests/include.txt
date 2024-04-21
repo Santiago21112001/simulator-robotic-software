@@ -1,4 +1,0 @@
-#include <LibreriaDelIDE.h>
-#include "ArchivoRandom.h"
-#include <EstoEsUnaLibreria.h>
-#include "iostream.h"

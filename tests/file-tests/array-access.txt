@@ -1,5 +1,0 @@
-void loop(){
-    acceso_a_array[1];
-    acc_arr_2[2][5];
-    random[1][0][3];
-}

@@ -1,0 +1,18 @@
+/*
+    Incluye prueba de constantes
+*/
+bool b;
+boolean bo = false;
+byte by;
+char c = 'a';
+double d = 2.69;
+float f;
+int i = 73;
+long l;
+short s;
+size_t size;
+string str = "hola";
+unsigned char uc;
+unsigned int ui;
+unsigned long ul;
+word w;

@@ -1,0 +1,25 @@
+void metodo() {
+    bool b;
+    boolean bo = true;
+    byte by;
+    char c = 'd';
+    double d = 29.73;
+    float f;
+    int i = 1615;
+    long l;
+    short s;
+    size_t size;
+    String str = "Diegui";
+    unsigned char uc;
+    unsigned int ui;
+    unsigned long ul;
+    word w;
+
+    const double cIni = 29.456;
+
+    static String str;
+    static char ch = 'c';
+
+    int arraySimple[5] = {1, 2, 3, 4, 5};
+    int arrayDoble[5][6];
+}

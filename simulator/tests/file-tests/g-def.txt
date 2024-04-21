@@ -1,0 +1,10 @@
+int num; //simple_def
+String saludo = "hola"; //assignment_def
+double notas[25]; //array_def simple
+boolean interruptores[] = {true, false, false, true, false}; //array_def sin index
+char iniciales[5] = {'E', 'A', 'M', 'A', 'P'}; //array_def con index
+char mensaje[10] = "Trae sopa"; //array_def stringficado
+#define ledPin 4 //define constante
+const double gravity = 9.8; //const
+#define arrayPins {1, 3, 7, 10}
+const String nombres[3]; 

@@ -1,0 +1,25 @@
+Program
+Program_code
+Function, setup
+Var_type, void
+Program_code
+Function, loop
+Var_type, void
+Sentence, return
+Program_code
+Function, checkSensor
+Var_type, int
+Sentence
+Conditional_sentence, if
+Expression, >
+Expression, analogRead(0)
+Expression, analogRead
+Parameter
+Expression, 0
+Expression, 400
+Code_block
+Sentence, return
+Expression, 1
+Code_block
+Sentence, return
+Expression, 0

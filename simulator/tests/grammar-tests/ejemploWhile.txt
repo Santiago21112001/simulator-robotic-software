@@ -1,0 +1,12 @@
+int var;
+
+void setup(){
+}
+
+void loop(){
+    var = 0;
+    while (var < 200) {
+        // do something repetitive 200 times
+        var++;
+    }
+}

@@ -1,0 +1,174 @@
+//Estamos utilizando el robot número 3. Es el que tiene la batería pegada
+//con celo y velcro
+#include <Servo.h>
+
+//Entradas motor derecho
+const int inR1 = 2 + 3 * 4 / 5 + 10;
+const int inR2 = 3;
+const int enableR = 9;
+
+//Entradas motor izquierdo
+const int inL1 = 4;
+const int inL2 = 5;
+const int enableL = 10;
+
+double numPrueba = 69.20201;
+bool tfPrueba = false;
+bool tprueba = true;
+
+//Sensores ópticos
+const int PhotoSensorLeft = 6;
+const int PhotoSensorRight = 7;
+
+const int BLANCO = 0;
+const int NEGRO = 1;
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(inR1, OUTPUT);
+  pinMode(inR2, OUTPUT);
+  pinMode(enableR, OUTPUT);
+
+  pinMode(inL1, OUTPUT);
+  pinMode(inL2, OUTPUT);
+  pinMode(enableL, OUTPUT);
+
+  pinMode(PhotoSensorLeft, INPUT);
+  pinMode(PhotoSensorRight, INPUT);
+}
+
+void loop() {
+
+  if (digitalRead(PhotoSensorLeft) == NEGRO && digitalRead(PhotoSensorRight) == NEGRO) {
+    avanzarVel(160);
+    //delay(40);
+
+  } else if (digitalRead(PhotoSensorLeft) == BLANCO && digitalRead(PhotoSensorRight) == BLANCO) {
+    derechaVel(200);
+
+  } else if (digitalRead(PhotoSensorLeft) == BLANCO) {
+    derechaVel(150);
+    //delay(40);
+
+  } else if (digitalRead(PhotoSensorRight) == BLANCO) {
+    izquierdaVel(150);
+    //delay(40);
+
+  }
+
+}
+
+void avanzar(){
+  digitalWrite(inR1, HIGH);
+  digitalWrite(inR2, LOW);
+  digitalWrite(enableR, HIGH);
+
+  digitalWrite(inL1, HIGH);
+  digitalWrite(inL2, LOW);
+  digitalWrite(enableL, HIGH);
+}
+
+void retroceder() {
+  digitalWrite(inR1, LOW);
+  digitalWrite(inR2, HIGH);
+  digitalWrite(enableR, HIGH);
+
+  digitalWrite(inL1, LOW);
+  digitalWrite(inL2, HIGH);
+  digitalWrite(enableL, HIGH);
+}
+
+void parar(){
+  digitalWrite(enableR, LOW);
+  digitalWrite(enableL, LOW);
+}
+
+void izquierda() {
+  //Avanza el derecho y retrocede el izquierdo
+  digitalWrite(inR1, HIGH);
+  digitalWrite(inR2, LOW);
+  digitalWrite(enableR, HIGH);
+
+  digitalWrite(inL1, LOW);
+  digitalWrite(inL2, HIGH);
+  digitalWrite(enableL, HIGH);
+}
+
+void derecha() {
+  //Avanza el izquierdo y retrocede el derecho
+  digitalWrite(inR1, LOW);
+  digitalWrite(inR2, HIGH);
+  digitalWrite(enableR, HIGH);
+
+  digitalWrite(inL1, HIGH);
+  digitalWrite(inL2, LOW);
+  digitalWrite(enableL, HIGH);
+}
+
+void avanzarVel(int vel) {
+
+  //if (vel < 150)
+    //vel = 150;
+
+  if (vel > 255)
+    vel = 255;
+
+  digitalWrite(inR1, HIGH);
+  digitalWrite(inR2, LOW);
+  analogWrite(enableR, vel);
+
+  digitalWrite(inL1, HIGH);
+  digitalWrite(inL2, LOW);
+  analogWrite(enableL, vel);
+}
+
+void retrocederVel(int vel) {
+
+  //if (vel < 150)
+    //vel = 150;
+
+  if (vel > 255)
+    vel = 255;
+
+  digitalWrite(inR1, LOW);
+  digitalWrite(inR2, HIGH);
+  analogWrite(enableR, vel);
+
+  digitalWrite(inL1, LOW);
+  digitalWrite(inL2, HIGH);
+  analogWrite(enableL, vel);
+}
+
+void izquierdaVel(int vel) {
+
+  //if (vel < 150)
+    //vel = 150;
+
+  if (vel > 255)
+    vel = 255;
+
+  digitalWrite(inR1, HIGH);
+  digitalWrite(inR2, LOW);
+  analogWrite(enableR, vel);
+
+  digitalWrite(inL1, LOW);
+  digitalWrite(inL2, HIGH);
+  analogWrite(enableL, vel);
+}
+
+void derechaVel(int vel) {
+
+  //if (vel < 150)
+    //vel = 150;
+
+  if (vel > 255)
+    vel = 255;
+
+  digitalWrite(inR1, LOW);
+  digitalWrite(inR2, HIGH);
+  analogWrite(enableR, vel);
+
+  digitalWrite(inL1, HIGH);
+  digitalWrite(inL2, LOW);
+  analogWrite(enableL, vel);
+}

@@ -1,0 +1,17 @@
+void setup() {
+
+}
+
+void loop() {
+
+}
+
+int factorial(int n) {
+
+}
+
+String outputPrint(string message, boolean b) {
+    string m = message.toUpperCase();
+    print(m);
+    return m;
+}

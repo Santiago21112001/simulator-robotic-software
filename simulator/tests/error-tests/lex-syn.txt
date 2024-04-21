@@ -1,0 +1,5 @@
+string saludo = int;
+int n = 0
+string panda = "panda;
+$;
+a = b;

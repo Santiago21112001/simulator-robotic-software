@@ -1,0 +1,6 @@
+int function(){
+    break;
+    continue;
+    return 1;
+    return;
+}

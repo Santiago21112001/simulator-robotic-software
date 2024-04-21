@@ -1,0 +1,17 @@
+int temperature;
+
+void setup(){
+    temperature = 50;
+}
+
+void loop(){
+    if (temperature >= 70) {
+        // Danger! Shut down the system.
+    }
+    else if (temperature >= 60) { // 60 <= temperature < 70
+        // Warning! User attention required.
+    }
+    else { // temperature < 60
+        // Safe! Continue usual tasks.
+    }
+}

@@ -1,0 +1,19 @@
+int var;
+
+void setup(){
+    var = 1;
+}
+
+void loop(){
+    switch (var) {
+        case 1:
+            //do something when var equals 1
+            break;
+        case 2:
+            //do something when var equals 2
+            break;
+        default:
+            println("hola");
+            break;
+    }
+}

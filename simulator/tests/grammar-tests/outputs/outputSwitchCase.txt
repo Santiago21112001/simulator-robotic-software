@@ -1,0 +1,31 @@
+Program
+Program_code
+Declaration
+Simple_declaration, var
+Var_type, int
+Program_code
+Function, setup
+Var_type, void
+Sentence
+Assignment
+Expression, var
+Expression, 1
+Program_code
+Function, loop
+Var_type, void
+Sentence
+Conditional_sentence, switch
+Expression, var
+Case_sentence
+Expression, 1
+Sentence, break
+Case_sentence
+Expression, 2
+Sentence, break
+Case_sentence
+Sentence
+Expression, println("hola")
+Expression, println
+Parameter
+Expression, "hola"
+Sentence, break

@@ -1,0 +1,28 @@
+int PWMpin = 10;  // LED in series with 470 ohm resistor on pin 10
+
+void setup(){
+}
+
+void loop(){
+    int i = 0;
+    do {
+        i += 1;
+        int j = i;
+    } while (i < 5);
+
+    for (int k = 0; k <= 255; k++) {
+        analogWrite(PWMpin, k);
+        delay(10);
+    }
+
+    int var = 0;
+    while (var < 200) {
+        // do something repetitive 200 times
+        var++;
+    }
+
+    String myString;
+    myString.reserve(26);
+    randomSeed(analogRead(0));
+    Serial.write(45); // send a byte with the value 45
+}

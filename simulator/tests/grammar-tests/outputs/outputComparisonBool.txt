@@ -1,0 +1,95 @@
+Program
+Program_code
+Declaration
+Simple_declaration, b
+Var_type, boolean
+Expression, false
+Program_code
+Function, setup
+Var_type, void
+Sentence
+Assignment
+Expression, b
+Expression, !=
+Expression, 5
+Expression, 3
+Sentence
+Assignment
+Expression, b
+Expression, <
+Expression, 3
+Expression, 4
+Sentence
+Assignment
+Expression, b
+Expression, <=
+Expression, 4
+Expression, 3
+Sentence
+Assignment
+Expression, b
+Expression, ==
+Expression, 4
+Expression, 9
+Sentence
+Assignment
+Expression, b
+Expression, >
+Expression, 4
+Expression, 2
+Sentence
+Assignment
+Expression, b
+Expression, >=
+Expression, 4
+Expression, 5
+Sentence
+Assignment
+Expression, b
+Expression, ||
+Expression, >
+Expression, 4
+Expression, 5
+Expression, <
+Expression, 5
+Expression, 6
+Sentence
+Assignment
+Expression, b
+Expression, &&
+Expression, !=
+Expression, 4
+Expression, 0
+Expression, >
+Expression, 5
+Expression, 7
+Sentence
+Assignment
+Expression, b
+Expression, !
+Expression, false
+Program_code
+Function, loop
+Var_type, void
+Sentence
+Conditional_sentence, if
+Expression, ||
+Expression, >
+Expression, 4
+Expression, 5
+Expression, <
+Expression, 5
+Expression, 6
+Code_block
+Code_block
+Sentence
+Conditional_sentence, if
+Expression, &&
+Expression, !=
+Expression, 4
+Expression, 0
+Expression, >
+Expression, 5
+Expression, 7
+Code_block
+Code_block

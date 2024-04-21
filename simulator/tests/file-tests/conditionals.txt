@@ -1,0 +1,31 @@
+void prueba() {
+    if(i > 2) {
+        doThis();
+    }
+
+    if(d < 29.69) {
+        doThat();
+    } else {
+        print();
+    }
+
+    if(true) {
+        doAlgo();
+    } else if(false) {
+        print();
+    } else {
+        prueba();
+    }
+
+    switch(var) {
+        case 1: 
+            print();
+            break;
+        case 2: 
+            println();
+            break;
+        default:
+            exit();
+            break;
+    }
+}

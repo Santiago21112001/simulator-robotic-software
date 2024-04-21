@@ -1,0 +1,80 @@
+int arr2[][2] = {{1, 2}, {3, 4}, {5, 6}, {7, 8}};
+int arr[][4] = {1+0, 2, 3, 4, 5, 6};
+char intruder_arr[] = {'D', 1, true, 'G', 'O'}; //Error
+bool b = 25;
+boolean bo = 35.30;
+int ara = true;
+double araara = false;
+int omoshiroi = 'A';
+bool daijoubu = 'B';
+int asr = A0 + A1;
+size_t st = 25;
+word w = 25564;
+int mil = millis();
+
+int hola(){
+  arr[false][false];  
+}
+
+int nodebe = 0;
+
+void setup() {
+  // put your setup code here, to run once: 
+  nodebe;
+
+  hola();
+  2+2.2;
+  "hola" != "adios";
+  if(true){}
+  int w = 1.0;
+  Serial.println(w);
+  #define numero 3
+  bool b = false;
+}
+
+int abc = 10;
+
+void loop() {
+  Serial.println(funcion_prueba());
+  const int entero = 29;
+  #define num 3
+  for (int i = 1; i<3 ; i=true){
+    if (true){
+      break;
+      continue;
+    }
+    switch(abc){
+      case 1:
+        continue;
+    }
+    abc=1;
+    abc;
+  }
+  int y = 0;
+  switch(y){
+    case 1+1:
+      1+1;
+
+    default:
+      break;
+    }
+  if(entero > true){
+    1+1;
+  }
+  ~1;
+  f(2.25);
+  while(true){
+    break;
+    continue;
+    1+1;
+  }
+}
+const int a = 3;
+int x = 5;
+int funcion_prueba() {
+  x=1;
+  return 25.5;
+}
+
+void f(int i){
+  }

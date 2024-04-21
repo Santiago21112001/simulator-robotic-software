@@ -1,0 +1,14 @@
+Pillow
+altgraph
+antlr4-python3-runtime
+cffi
+cryptography
+packaging
+pefile
+pip
+pycparser
+pyinstaller
+pyintaller-hooks-contrib
+pywin32-ctypes
+setuptools
+wheel

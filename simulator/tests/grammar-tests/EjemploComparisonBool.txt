@@ -1,0 +1,23 @@
+boolean b = false;
+
+void setup(){
+    b = 5 != 3;
+    b = 3 < 4;
+    b = 4 <= 3;
+    b = 4 == 9;
+    b = 4 > 2;
+    b = 4 >= 5;
+    b = 4 > 5 || 5 < 6;
+    b = 4 != 0 && 5 > 7;
+    b = ! false;
+}
+
+void loop(){
+    if(4 > 5 || 5 < 6){
+        // something something
+    } else if(4 != 0 && 5 > 7) {
+        // cookies
+    } else {
+        // pizza
+    }
+}

@@ -1,0 +1,7 @@
+void func(){
+    f();
+    print("hola");
+    mensaje.toUpperCase();
+    persona.nombre.toLowerCase();
+    params(1, "hola", true);
+}
