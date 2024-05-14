@@ -617,16 +617,17 @@ class Circuit:
         self.draw_circuit()
 
     def create_pieces(self):
+        desviation = 500
         for part in self.parts:
-            x1 = part['x1']
-            y1 = part['y1']
-            x2 = part['x2']
-            y2 = part['y2']
+            x1 = part['x1'] + desviation
+            y1 = part['y1'] + desviation
+            x2 = part['x2'] + desviation
+            y2 = part['y2'] + desviation
             part_type = part['type']
             if part_type == 'turn1':
-                self.__create_turn()
+                self.__create_turn(x1, y1, abs(x2-x1), part['extent'], part['start'], part['width'])
             else:
-                pass
+                self.__create_straight(x1, y1, abs(x2 - x1), abs(y2 - y1))
 
     def create_straights(self):
         """
