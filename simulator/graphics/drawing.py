@@ -170,6 +170,19 @@ class Drawing:
         self.canvas.create_rectangle(
             x, y, x + width, y + height, fill=color, tags=group)
 
+    def draw_polygon(self, form: dict):
+        """
+        Draws a polygon given some measurements
+        Arguments:
+            form: a dictionary whose elements are the points
+            polygon and the color and group (tag of tkinter)
+        """
+        points = form["points"]
+        color = form["color"]
+        group = form["group"]
+        self.canvas.create_polygon(
+            points, fill=color, tags=group)
+
     def draw_part_wire(self, x, y):
         if self.component_to_attach is not None:
             self.draw_wire(x + self.dx, y + self.dy, self.component_to_attach_x + self.dx,
@@ -641,3 +654,5 @@ class Drawing:
 
     def select_pin_gnd3(self, element, event):
         self.attach_component(element, 24, event.x, event.y)
+
+

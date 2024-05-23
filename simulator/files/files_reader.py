@@ -14,7 +14,9 @@ class FileManager:
         f = open(file, encoding='utf-8')
         return f.readlines()
 
-    def save(self, file=None, content=[]):
+    def save(self, file=None, content=None):
+        if content is None:
+            content = []
         if file is not None:
             self.file = file
         if self.file is not None:
@@ -62,7 +64,7 @@ class RobotDataReader:
         for circuit in self.circuits:
             if circuit_name == circuit['name']:
                 if 'parts' in circuit:
-                    circuit_parts = self.__read_parts(circuit['parts'])
+                    circuit_parts = self.__read_parts2(circuit['parts'])
                 if 'obstacles' in circuit:
                     obstacles = self.__read_obstacles(circuit['obstacles'])
         return (circuit_parts, obstacles)
@@ -125,6 +127,10 @@ class RobotDataReader:
                         'dist': part['dist']
                     }
                     )
+        return circuit_parts
+
+    def __read_parts2(self, parts):
+        circuit_parts = parts
         return circuit_parts
 
     def __read_obstacles(self, obstacles):

@@ -612,22 +612,35 @@ class Circuit:
         """
         Creates and draws a circuit
         """
-        self.create_straights()
-        #self.create_pieces()
+        #self.create_straights()
+        self.create_pieces()
         self.draw_circuit()
 
     def create_pieces(self):
-        desviation = 500
+        x_robot = 500
+        y_robot = 500
+        x_desv = self.parts[0]['x1'] - x_robot
+        y_desv = self.parts[0]['y1'] - y_robot
         for part in self.parts:
-            x1 = part['x1'] + desviation
-            y1 = part['y1'] + desviation
-            x2 = part['x2'] + desviation
-            y2 = part['y2'] + desviation
+
+            x1 = part['x1']
+            y1 = part['y1']
+
+            x1 = x1 - x_desv
+            y1 = y1 - y_desv
+
+            scale = 1/float(part['scale'])
             part_type = part['type']
             if part_type == 'turn1':
-                self.__create_turn(x1, y1, abs(x2-x1), part['extent'], part['start'], part['width'])
+                x2 = part['x2'] - x_desv
+                self.__create_turn(x1, y1, abs(x2-x1)*scale, part['start'], part['extent'], part['width']*scale)
+            elif part_type == 'polygon':
+                w = part["width"] * scale
+                self.__create_polygon(x1, y1, w)
             else:
-                self.__create_straight(x1, y1, abs(x2 - x1), abs(y2 - y1))
+                x2 = part['x2'] - x_desv
+                y2 = part['y2'] - y_desv
+                self.__create_straight(x1, y1, abs(x2 - x1)*scale, abs(y2 - y1)*scale)
 
     def create_straights(self):
         """
@@ -872,6 +885,10 @@ class Circuit:
                              angle, starting_angle, track_width)
         )
 
+    def __create_polygon(self, x, y, w):
+        self.circuit_parts.append(
+            self.CircuitPolygon(x, y, w))
+
     def is_overlapping(self, x, y):
         """
         Checks if the coordinates are overlapping with the circuit
@@ -1101,6 +1118,61 @@ class Circuit:
                     and self.starting_angle <= inside_angle <= end_angle
                 )
             return False
+
+    class CircuitPolygon(CircuitPart):
+        def __init__(self, x, y, width):
+            """
+            Constructor for circuit straight
+            Arguments:
+                x: the x coordinate of the straight
+                y: the y coordinate of the straight
+                width: the width of the straight
+                heigth: the height of the straight
+            """
+            super().__init__(x, y)
+            self.width = width
+
+        def draw(self, drawing: drawing.Drawing):
+            w = self.width
+            x = self.x
+            y = self.y
+            points = [
+                x, y,
+                x + w, y,
+                x + w, y - w,
+                x + w * 2, y - w,
+                x + w * 2, y,
+                x + w * 3, y,
+                x + w * 3, y + w,
+                x + w * 2, y + w,
+                x + w * 2, y + w * 2,
+                x + w, y + w * 2,
+                x + w, y + w,
+                x, y + w
+            ]
+            drawing.draw_polygon(
+                {
+                    "points": points,
+                    "color": "black",
+                    "group": "circuit"
+                }
+            )
+
+        def check_overlap(self, x, y):
+            """
+            Checks if the point is overlapped with the
+            circuit
+            """
+            return (
+                    (
+                            x >= self.x
+                            and x <= self.x
+                    ) and (
+                            y >= self.y
+                            and y <= self.y
+                    )
+            )
+
 
 
 class Obstacle:
