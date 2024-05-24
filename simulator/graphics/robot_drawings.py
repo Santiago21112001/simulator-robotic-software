@@ -617,16 +617,16 @@ class Circuit:
         self.draw_circuit()
 
     def create_pieces(self):
-        x_robot = 500
-        y_robot = 500
+        x_robot = 100
+        y_robot = 100
         x_desv = self.parts[0]['x1'] - x_robot
         y_desv = self.parts[0]['y1'] - y_robot
         for part in self.parts:
             part_type = part['type']
             x1 = part['x1']
             y1 = part['y1']
-            #x1 = x1 - x_desv
-            #y1 = y1 - y_desv
+            x1 = x1 - x_desv
+            y1 = y1 - y_desv
             scale = 1/float(part['scale'])
             if part_type == 'turn1':
                 self.__create_turn(x1*scale, y1*scale, part['dist']*scale, part['extent'], part['start'], part['width']*scale)
