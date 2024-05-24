@@ -174,10 +174,11 @@ class Drawing:
         """
         Draws a polygon given some measurements
         Arguments:
-            form: a dictionary whose elements are the points
+            form: a dictionary whose elements are the points of the
             polygon and the color and group (tag of tkinter)
         """
         points = form["points"]
+        points = [x * self.scale for x in points]
         color = form["color"]
         group = form["group"]
         self.canvas.create_polygon(

@@ -622,25 +622,23 @@ class Circuit:
         x_desv = self.parts[0]['x1'] - x_robot
         y_desv = self.parts[0]['y1'] - y_robot
         for part in self.parts:
-
+            part_type = part['type']
             x1 = part['x1']
             y1 = part['y1']
-
-            x1 = x1 - x_desv
-            y1 = y1 - y_desv
-
+            #x1 = x1 - x_desv
+            #y1 = y1 - y_desv
             scale = 1/float(part['scale'])
-            part_type = part['type']
             if part_type == 'turn1':
-                x2 = part['x2'] - x_desv
-                self.__create_turn(x1, y1, abs(x2-x1)*scale, part['start'], part['extent'], part['width']*scale)
+                self.__create_turn(x1*scale, y1*scale, part['dist']*scale, part['extent'], part['start'], part['width']*scale)
             elif part_type == 'polygon':
                 w = part["width"] * scale
-                self.__create_polygon(x1, y1, w)
+                self.__create_polygon(x1*scale, y1*scale, w)
             else:
-                x2 = part['x2'] - x_desv
-                y2 = part['y2'] - y_desv
-                self.__create_straight(x1, y1, abs(x2 - x1)*scale, abs(y2 - y1)*scale)
+                orient = part['orient']
+                if orient == 'x':
+                    self.__create_straight(x1*scale, y1*scale, part['dist']*scale, part['width']*scale)
+                else:
+                    self.__create_straight(x1*scale, y1*scale, part['width'] * scale, part['dist'] * scale)
 
     def create_straights(self):
         """
