@@ -617,32 +617,41 @@ class Circuit:
         self.draw_circuit()
 
     def create_pieces(self):
+        """
+        Creates all the circuit pieces.
+        """
         x_robot = 100
         y_robot = 100
+        # Calculate the distance between the robot and the first puiece.
         x_desv = self.parts[0]['x1'] - x_robot
         y_desv = self.parts[0]['y1'] - y_robot
         for part in self.parts:
             part_type = part['type']
             x1 = part['x1']
             y1 = part['y1']
+            # Put the first piece on the robot coordinates. All other pieces will move the same amount of distance.
             x1 = x1 - x_desv
             y1 = y1 - y_desv
+            # Change scale of the piece to 100 %,
+            # so it draws at the correct scale later.
             scale = 1/float(part['scale'])
-            if part_type == 'turn1':
-                self.__create_turn(x1*scale, y1*scale, part['dist']*scale, part['extent'], part['start'], part['width']*scale)
+            if part_type == 'turn':
+                self.__create_turn(x1*scale, y1*scale, part['dist']*scale, part['extent'], part['start'],
+                                   part['width']*scale)
             elif part_type == 'polygon':
                 w = part["width"] * scale
                 self.__create_polygon(x1*scale, y1*scale, w)
             else:
                 orient = part['orient']
                 if orient == 'x':
-                    self.__create_straight(x1*scale, y1*scale, part['dist']*scale, part['width']*scale)
+                    self.__create_straight(x1*scale, y1*scale, part['dist']*scale, self.ROAD_WIDTH)
                 else:
                     self.__create_straight(x1*scale, y1*scale, part['width'] * scale, part['dist'] * scale)
 
     def create_straights(self):
         """
-        Creates all the circuit pieces
+        Deprecated version of 'create_pieces'. It doesn't work and will be erased in the future.
+        Creates all the circuit pieces.
         """
         x = 550
         y = 550

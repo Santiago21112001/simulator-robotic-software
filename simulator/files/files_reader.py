@@ -64,10 +64,10 @@ class RobotDataReader:
         for circuit in self.circuits:
             if circuit_name == circuit['name']:
                 if 'parts' in circuit:
-                    circuit_parts = self.__read_parts2(circuit['parts'])
+                    circuit_parts = circuit['parts']
                 if 'obstacles' in circuit:
                     obstacles = self.__read_obstacles(circuit['obstacles'])
-        return (circuit_parts, obstacles)
+        return circuit_parts, obstacles
 
     def __name_from_opt(self, robot_opt):
         """
@@ -127,10 +127,6 @@ class RobotDataReader:
                         'dist': part['dist']
                     }
                     )
-        return circuit_parts
-
-    def __read_parts2(self, parts):
-        circuit_parts = parts
         return circuit_parts
 
     def __read_obstacles(self, obstacles):

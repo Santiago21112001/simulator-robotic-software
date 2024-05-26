@@ -139,8 +139,8 @@
             "parts": [
                 {
                     "type": "straight",
-                    "x1": 393.0,
-                    "y1": 364.0,
+                    "x1": 100.0,
+                    "y1": 100.0,
                     "orient": "x",
                     "width": 20,
                     "dist": 70,
@@ -148,37 +148,11 @@
                 },
                 {
                     "type": "straight",
-                    "x1": 463.0,
-                    "y1": 365.0,
-                    "orient": "y",
-                    "width": 20,
-                    "dist": 70,
-                    "scale": 0.2
-                },
-                {
-                    "type": "straight",
-                    "x1": 475.0,
-                    "y1": 414.0,
+                    "x1": 159.0,
+                    "y1": 100.0,
                     "orient": "x",
                     "width": 20,
                     "dist": 70,
-                    "scale": 0.2
-                },
-                {
-                    "type": "turn1",
-                    "x1": 503.0,
-                    "y1": 358.0,
-                    "dist": 70,
-                    "start": -90,
-                    "extent": 90,
-                    "width": 20,
-                    "scale": 0.2
-                },
-                {
-                    "type": "polygon",
-                    "x1": 544.0,
-                    "y1": 360.0,
-                    "width": 20,
                     "scale": 0.2
                 }
             ],
