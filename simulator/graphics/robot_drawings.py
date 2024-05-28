@@ -622,7 +622,7 @@ class Circuit:
         """
         x_robot = 100
         y_robot = 100
-        # Calculate the distance between the robot and the first puiece.
+        # Calculate the distance between the robot and the first piece.
         x_desv = self.parts[0]['x1'] - x_robot
         y_desv = self.parts[0]['y1'] - y_robot
         for part in self.parts:
@@ -646,7 +646,7 @@ class Circuit:
                 if orient == 'x':
                     self.__create_straight(x1*scale, y1*scale, part['dist']*scale, self.ROAD_WIDTH)
                 else:
-                    self.__create_straight(x1*scale, y1*scale, part['width'] * scale, part['dist'] * scale)
+                    self.__create_straight(x1*scale, y1*scale, self.ROAD_WIDTH, part['dist'] * scale)
 
     def create_straights(self):
         """
@@ -1129,12 +1129,11 @@ class Circuit:
     class CircuitPolygon(CircuitPart):
         def __init__(self, x, y, width):
             """
-            Constructor for circuit straight
+            Constructor for circuit polygon
             Arguments:
-                x: the x coordinate of the straight
-                y: the y coordinate of the straight
-                width: the width of the straight
-                heigth: the height of the straight
+                x: the x coordinate of the polygon
+                y: the y coordinate of the polygon
+                width: the width of the polygon
             """
             super().__init__(x, y)
             self.width = width
@@ -1165,20 +1164,51 @@ class Circuit:
                 }
             )
 
-        def check_overlap(self, x, y):
+        def check_overlap(self, px, py):
             """
-            Checks if the point is overlapped with the
-            circuit
+            Check if the point (px, py) is inside the intersection, using the ray-casting algorithm.
+            Arguments:
+                px: the x coordinate of the point to check
+                py: the y coordinate of the point to check
+            Returns:
+                True if the point is inside the intersection, False otherwise
             """
-            return (
-                    (
-                            x >= self.x
-                            and x <= self.x
-                    ) and (
-                            y >= self.y
-                            and y <= self.y
-                    )
-            )
+            w = self.width
+            x = self.x
+            y = self.y
+            points = [
+                (x, y),
+                (x + w, y),
+                (x + w, y - w),
+                (x + w * 2, y - w),
+                (x + w * 2, y),
+                (x + w * 3, y),
+                (x + w * 3, y + w),
+                (x + w * 2, y + w),
+                (x + w * 2, y + w * 2),
+                (x + w, y + w * 2),
+                (x + w, y + w),
+                (x, y + w)
+            ]
+
+            n = len(points)
+            inside = False
+
+            # Ray-casting algorithm
+            xinters = 0
+            p1x, p1y = points[0]
+            for i in range(n + 1):
+                p2x, p2y = points[i % n]
+                if py > min(p1y, p2y):
+                    if py <= max(p1y, p2y):
+                        if px <= max(p1x, p2x):
+                            if p1y != p2y:
+                                xinters = (py - p1y) * (p2x - p1x) / (p2y - p1y) + p1x
+                            if p1x == p2x or px <= xinters:
+                                inside = not inside
+                p1x, p1y = p2x, p2y
+
+            return inside
 
 
 

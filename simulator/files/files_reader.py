@@ -65,6 +65,7 @@ class RobotDataReader:
             if circuit_name == circuit['name']:
                 if 'parts' in circuit:
                     circuit_parts = circuit['parts']
+                    #circuit_parts = self.__read_parts(circuit['parts'])
                 if 'obstacles' in circuit:
                     obstacles = self.__read_obstacles(circuit['obstacles'])
         return circuit_parts, obstacles

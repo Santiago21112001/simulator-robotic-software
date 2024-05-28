@@ -141,18 +141,65 @@
                     "type": "straight",
                     "x1": 100.0,
                     "y1": 100.0,
-                    "orient": "x",
+                    "orient": "y",
                     "width": 20,
                     "dist": 70,
                     "scale": 0.2
                 },
                 {
                     "type": "straight",
-                    "x1": 159.0,
-                    "y1": 100.0,
+                    "x1": 99.0,
+                    "y1": 171.0,
                     "orient": "x",
                     "width": 20,
                     "dist": 70,
+                    "scale": 0.2
+                },
+                {
+                    "type": "turn",
+                    "x1": 134.0,
+                    "y1": 179.0,
+                    "dist": 70,
+                    "start": 0,
+                    "extent": 90,
+                    "width": 20,
+                    "scale": 0.2
+                },
+                {
+                    "type": "turn",
+                    "x1": 202.0,
+                    "y1": 177.0,
+                    "dist": 70,
+                    "start": 180,
+                    "extent": 90,
+                    "width": 20,
+                    "scale": 0.2
+                },
+                {
+                    "type": "turn",
+                    "x1": 198.0,
+                    "y1": 178.0,
+                    "dist": 70,
+                    "start": -90,
+                    "extent": 90,
+                    "width": 20,
+                    "scale": 0.2
+                },
+                {
+                    "type": "turn",
+                    "x1": 265.0,
+                    "y1": 184.0,
+                    "dist": 70,
+                    "start": 90,
+                    "extent": 90,
+                    "width": 20,
+                    "scale": 0.2
+                },
+                {
+                    "type": "polygon",
+                    "x1": 294.0,
+                    "y1": 175.0,
+                    "width": 20,
                     "scale": 0.2
                 }
             ],
