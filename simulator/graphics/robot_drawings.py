@@ -634,19 +634,19 @@ class Circuit:
             y1 = y1 - y_desv
             # Change scale of the piece to 100 %,
             # so it draws at the correct scale later.
-            scale = 1/float(part['scale'])
+            scale = 1 / float(part['scale'])
             if part_type == 'turn':
-                self.__create_turn(x1*scale, y1*scale, part['dist']*scale, part['extent'], part['start'],
-                                   part['width']*scale)
+                self.__create_turn(x1 * scale, y1 * scale, part['dist'] * scale, part['extent'], part['start'],
+                                   part['width'] * scale)
             elif part_type == 'polygon':
                 w = part["width"] * scale
-                self.__create_polygon(x1*scale, y1*scale, w)
+                self.__create_polygon(x1 * scale, y1 * scale, w)
             else:
                 orient = part['orient']
                 if orient == 'x':
-                    self.__create_straight(x1*scale, y1*scale, part['dist']*scale, self.ROAD_WIDTH)
+                    self.__create_straight(x1 * scale, y1 * scale, part['dist'] * scale, self.ROAD_WIDTH)
                 else:
-                    self.__create_straight(x1*scale, y1*scale, self.ROAD_WIDTH, part['dist'] * scale)
+                    self.__create_straight(x1 * scale, y1 * scale, self.ROAD_WIDTH, part['dist'] * scale)
 
     def create_straights(self):
         """
@@ -684,7 +684,6 @@ class Circuit:
             elif part['type'] == 'id':
                 self.__create_id(x, y, part["dist"], self.ROAD_WIDTH, part["number"])
                 x += part["dist"]
-
 
     def __save_coords_x(self, x, y, part):
         list_coords = []
@@ -857,6 +856,7 @@ class Circuit:
         self.circuit_parts.append(
             self.CircuitStraight(x, y, width, height)
         )
+
     def __create_id(self, x, y, width, height, number):
         """
         Creates a straight
@@ -877,6 +877,7 @@ class Circuit:
         self.circuit_parts.append(
             self.CircuitId(x, y, width, height, number)
         )
+
     def __create_turn(self, x, y, bounding_len, angle, starting_angle, track_width):
         """
         Creates a turn
@@ -937,7 +938,6 @@ class Circuit:
             """
             pass
 
-
     class CircuitStraight(CircuitPart):
 
         def __init__(self, x, y, width, height):
@@ -971,19 +971,19 @@ class Circuit:
             circuit
             """
             return (
-                (
-                    x >= self.x
-                    and x <= self.x + self.width
-                ) and (
-                    y >= self.y
-                    and y <= self.y + self.height
-                )
+                    (
+                            x >= self.x
+                            and x <= self.x + self.width
+                    ) and (
+                            y >= self.y
+                            and y <= self.y + self.height
+                    )
             )
 
     class CircuitId(CircuitStraight):
 
-            def __init__(self, x, y, width, height, number):
-                """
+        def __init__(self, x, y, width, height, number):
+            """
                 Constructor for circuit straight
                 Arguments:
                 x: the x coordinate of the id
@@ -992,64 +992,65 @@ class Circuit:
                 heigth: the height of the id
                 number: the identifier of the id
                 """
-                super().__init__(x, y, width, height)
-                self.number = number
+            super().__init__(x, y, width, height)
+            self.number = number
 
-            def draw(self, drawing: drawing.Drawing):
-                temp = self.number
-                bits = []
-                for cont in range(3):
-                    bits.append((temp >> cont) % 2)
-                bits.append(0)
-                bits.reverse()
-                for cont, bit in enumerate(bits):
+        def draw(self, drawing: drawing.Drawing):
+            temp = self.number
+            bits = []
+            for cont in range(3):
+                bits.append((temp >> cont) % 2)
+            bits.append(0)
+            bits.reverse()
+            for cont, bit in enumerate(bits):
+                drawing.draw_rectangle(
+                    {
+                        "x": self.x + (2 * cont + 1) * self.width / 8,
+                        "y": self.y,
+                        "width": self.width / 8,
+                        "height": self.height,
+                        "color": "black",
+                        "group": "circuit"
+                    }
+                )
+                if bit:
                     drawing.draw_rectangle(
                         {
-                            "x": self.x + (2 * cont + 1) * self.width / 8,
-                            "y": self.y,
+                            "x": self.x + cont * self.width / 4,
+                            "y": self.y - 2 * self.height,
                             "width": self.width / 8,
-                            "height": self.height,
+                            "height": 5 * self.height,
                             "color": "black",
                             "group": "circuit"
                         }
                     )
-                    if bit:
-                        drawing.draw_rectangle(
-                            {
-                                "x": self.x + cont * self.width / 4,
-                                "y": self.y - 2 * self.height,
-                                "width": self.width / 8,
-                                "height": 5 * self.height,
-                                "color": "black",
-                                "group": "circuit"
-                            }
-                        )
-            def check_overlap(self, x, y):
-                """
+
+        def check_overlap(self, x, y):
+            """
                 Checks if the point is overlapped with the
                 circuit
                 """
-                temp = self.number
-                bits = []
-                for cont in range(3):
-                    bits.append((temp >> cont) % 2)
-                bits.append(0)
-                bits.reverse()
-                for cont, bit in enumerate(bits):
-                    if ((self.x + (2 * cont + 1) * self.width / 8 <= x
-                         <= self.x + (2 * cont + 2) * self.width / 8)
+            temp = self.number
+            bits = []
+            for cont in range(3):
+                bits.append((temp >> cont) % 2)
+            bits.append(0)
+            bits.reverse()
+            for cont, bit in enumerate(bits):
+                if ((self.x + (2 * cont + 1) * self.width / 8 <= x
+                     <= self.x + (2 * cont + 2) * self.width / 8)
                         and
                         (self.y <= y <= self.y + self.height)
-                        ):
-                        return True
-                    if bit:
-                        if ((self.x + cont * self.width / 4 <= x
-                             <= self.x + (2 * cont + 1) * self.width / 8)
+                ):
+                    return True
+                if bit:
+                    if ((self.x + cont * self.width / 4 <= x
+                         <= self.x + (2 * cont + 1) * self.width / 8)
                             and
                             (self.y - 2 * self.height <= y <= self.y + 2 * self.height)
-                            ):
-                            return True
-                return False
+                    ):
+                        return True
+            return False
 
     class CircuitTurn(CircuitPart):
 
@@ -1106,8 +1107,8 @@ class Circuit:
             )
 
             inside_arc = (
-                dist >= r_in
-                and dist <= r_out
+                    dist >= r_in
+                    and dist <= r_out
             )
 
             if inside_arc:
@@ -1121,8 +1122,8 @@ class Circuit:
                 if end_angle == 0:
                     end_angle = 360
                 return (
-                    inside_angle
-                    and self.starting_angle <= inside_angle <= end_angle
+                        inside_angle
+                        and self.starting_angle <= inside_angle <= end_angle
                 )
             return False
 
@@ -1209,7 +1210,6 @@ class Circuit:
                 p1x, p1y = p2x, p2y
 
             return inside
-
 
 
 class Obstacle:
@@ -1323,6 +1323,6 @@ class Obstacle:
             True if inbounds, False if else
         """
         return (
-            self.x <= x <= (self.x + self.width)
-            and self.y <= y <= (self.y + self.height)
+                self.x <= x <= (self.x + self.width)
+                and self.y <= y <= (self.y + self.height)
         )

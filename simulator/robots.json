@@ -1,0 +1,136 @@
+{
+    "robots": [
+        {
+            "name": "mobile2",
+            "elements": [
+                {
+                    "name": "servo left",
+                    "pin": "8"
+                },
+                {
+                    "name": "servo right",
+                    "pin": "9"
+                },
+                {
+                    "name": "light 2",
+                    "pin": "2"
+                },
+                {
+                    "name": "light 3",
+                    "pin": "3"
+                },
+                {
+                    "name": "trig",
+                    "pin": "4"
+                },
+                {
+                    "name": "echo",
+                    "pin": "5"
+                }
+            ]
+        },
+        {
+            "name": "mobile3",
+            "elements": [
+                {
+                    "name": "servo left",
+                    "pin": "8"
+                },
+                {
+                    "name": "servo right",
+                    "pin": "9"
+                },
+                {
+                    "name": "light 1",
+                    "pin": "10"
+                },
+                {
+                    "name": "light 2",
+                    "pin": "2"
+                },
+                {
+                    "name": "light 3",
+                    "pin": "3"
+                },
+                {
+                    "name": "trig",
+                    "pin": "7"
+                },
+                {
+                    "name": "echo",
+                    "pin": "5"
+                }
+            ]
+        },
+        {
+            "name": "mobile4",
+            "elements": [
+                {
+                    "name": "servo left",
+                    "pin": "8"
+                },
+                {
+                    "name": "servo right",
+                    "pin": "9"
+                },
+                {
+                    "name": "light 1",
+                    "pin": "10"
+                },
+                {
+                    "name": "light 2",
+                    "pin": "2"
+                },
+                {
+                    "name": "light 3",
+                    "pin": "3"
+                },
+                {
+                    "name": "light 4",
+                    "pin": "11"
+                },
+                {
+                    "name": "trig",
+                    "pin": "4"
+                },
+                {
+                    "name": "echo",
+                    "pin": "5"
+                }
+            ]
+        },
+        {
+            "name": "actuator",
+            "elements": [
+                {
+                    "name": "servo",
+                    "pin": "8"
+                },
+                {
+                    "name": "button joystick",
+                    "pin": "9"
+                },
+                {
+                    "name": "x joystick",
+                    "pin": "A0"
+                },
+                {
+                    "name": "y joystick",
+                    "pin": "A1"
+                },
+                {
+                    "name": "button left",
+                    "pin": "6"
+                },
+                {
+                    "name": "button right",
+                    "pin": "7"
+                }
+            ]
+        },
+        {
+            "name": "arduinoBoard",
+            "elements": []
+        }
+    ]
+}

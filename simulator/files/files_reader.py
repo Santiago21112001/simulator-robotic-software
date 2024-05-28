@@ -30,10 +30,13 @@ class RobotDataReader:
         """
         Constructor for robot data reader
         """
-        with open("robot_data.json", "r") as file:
-            self.data = json.load(file)
-        self.robots = self.data['robots']
-        self.circuits = self.data['circuits']
+
+        with open("robots.json", "r") as file:
+            data = json.load(file)
+            self.robots = data['robots']
+        with open("circuits.json", "r") as file:
+            data = json.load(file)
+            self.circuits = data['circuits']
 
     def parse_robot(self, robot_opt):
         """
