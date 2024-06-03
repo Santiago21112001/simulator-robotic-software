@@ -132,8 +132,9 @@ class MobileRobotLayer(Layer):
         self.hud = huds.MobileHUD()
         self.robot_data = self.rdr.parse_robot(n_light_sens - 2)
         self.robot = robots.MobileRobot(n_light_sens, self.robot_data)
+        self.left_ext_only = self.check_lights(n_light_sens)
         self.robot_drawing = robot_drawings.MobileRobotDrawing(
-            self.drawing, n_light_sens)
+            self.drawing, n_light_sens, self.left_ext_only)
 
         self.n_sens = n_light_sens
 
@@ -141,6 +142,14 @@ class MobileRobotLayer(Layer):
         self.is_moving = False
         self.circuit = None
         self.obstacle = None
+
+    def check_lights(self, n_light_sens):
+        """Returns True if there are 3 light sensors and 'light 4' exists. Returns False otherwise.
+        True means that it's a robot with 3 light sensors and the exterior one should be on the left."""
+        # Convert the list of tuples into a dictionary for faster lookup.
+        robot_dict = dict(self.robot_data)
+
+        return n_light_sens == 3 and 'light 4' in robot_dict
 
     def move(self, using_keys, move_WASD):
         """
@@ -200,7 +209,7 @@ class MobileRobotLayer(Layer):
         self.hud = huds.MobileHUD()
         self.robot = robots.MobileRobot(self.n_sens, self.robot_data)
         self.robot_drawing = robot_drawings.MobileRobotDrawing(
-            self.drawing, self.n_sens)
+            self.drawing, self.n_sens, self.left_ext_only)
 
     def __move_keys(self, movement):
         """

@@ -236,7 +236,10 @@ class MobileRobot(Robot):
         Sets the most right light sensor attached to a pin
         and marks the pin as used at the board
         """
-        light = self.light_sensors[3]
+        if len(self.light_sensors) < 4:
+            light = self.light_sensors[0]
+        else:
+            light = self.light_sensors[3]
         if self.board.check_type(pin, light.get_pin_type()):
             if self.board.attach_pin(pin, light):
                 light.pin = pin
@@ -245,7 +248,10 @@ class MobileRobot(Robot):
         """
         Detaches the most right light sensor from board
         """
-        light = self.light_sensors[3]
+        if len(self.light_sensors) < 4:
+            light = self.light_sensors[0]
+        else:
+            light = self.light_sensors[3]
         self.board.detach_pin(light.pin)
         light.pin = -1
 
