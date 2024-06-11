@@ -369,10 +369,10 @@ class PinConfigurationWindow(tk.Toplevel):
             frame_content, text="Pin luz derecha:", underline=10)
         self.entry_pin_l3 = tk.Entry(frame_content)
         self.lb_pin_light1 = tk.Label(
-            frame_content, text="Pin luz mas izquierda:", underline=14)
+            frame_content, text="Pin luz más izquierda:", underline=14)
         self.entry_pin_l1 = tk.Entry(frame_content)
         self.lb_pin_light4 = tk.Label(
-            frame_content, text="Pin luz mas derecha:", underline=17)
+            frame_content, text="Pin luz más derecha:", underline=17)
         self.entry_pin_l4 = tk.Entry(frame_content)
         self.lb_pin_sound1 = tk.Label(
             frame_content, text="Pin trigger:", underline=4)
@@ -528,10 +528,13 @@ class PinConfigurationWindow(tk.Toplevel):
         self.entry_pin_l2.grid(row=2, column=1, sticky="w", padx=5)
         self.lb_pin_light3.grid(row=2, column=2, sticky="w")
         self.entry_pin_l3.grid(row=2, column=3, sticky="w", padx=5)
-        self.lb_pin_light1.grid(row=3, column=0, sticky="w")
-        self.entry_pin_l1.grid(row=3, column=1, sticky="w", padx=5)
-        # self.lb_pin_light4.grid(row=3, column=2, sticky="w")
-        # self.entry_pin_l4.grid(row=3, column=3, sticky="w", padx=5)
+
+        if "light_mleft" in self.data:
+            self.lb_pin_light1.grid(row=3, column=0, sticky="w")
+            self.entry_pin_l1.grid(row=3, column=1, sticky="w", padx=5)
+        else:
+            self.lb_pin_light4.grid(row=3, column=2, sticky="w")
+            self.entry_pin_l4.grid(row=3, column=3, sticky="w", padx=5)
         self.lb_pin_sound1.grid(row=4, column=0, sticky="w")
         self.entry_pin_so1.grid(row=4, column=1, sticky="w", padx=5)
         self.lb_pin_sound2.grid(row=4, column=2, sticky="w")
@@ -539,10 +542,12 @@ class PinConfigurationWindow(tk.Toplevel):
 
         self.entry_pin_se1.insert(tk.END, self.data["servo_left"])
         self.entry_pin_se2.insert(tk.END, self.data["servo_right"])
-        self.entry_pin_l1.insert(tk.END, self.data["light_mleft"])
+        if "light_mleft" in self.data:
+            self.entry_pin_l1.insert(tk.END, self.data["light_mleft"])
+        else:
+            self.entry_pin_l4.insert(tk.END, self.data["light_mright"])
         self.entry_pin_l2.insert(tk.END, self.data["light_left"])
         self.entry_pin_l3.insert(tk.END, self.data["light_right"])
-        # self.entry_pin_l4.insert(tk.END, self.data["light_mright"])
         self.entry_pin_so1.insert(tk.END, self.data["sound_trig"])
         self.entry_pin_so2.insert(tk.END, self.data["sound_echo"])
 
@@ -550,8 +555,10 @@ class PinConfigurationWindow(tk.Toplevel):
         self.bind("<Alt-d>", lambda event: self.entry_pin_se2.focus())
         self.bind("<Alt-z>", lambda event: self.entry_pin_l2.focus())
         self.bind("<Alt-r>", lambda event: self.entry_pin_l3.focus())
-        self.bind("<Alt-q>", lambda event: self.entry_pin_l1.focus())
-        # self.bind("<Alt-h>", lambda event: self.entry_pin_l4.focus())
+        if "light_mleft" in self.data:
+            self.bind("<Alt-q>", lambda event: self.entry_pin_l1.focus())
+        else:
+            self.bind("<Alt-h>", lambda event: self.entry_pin_l4.focus())
         self.bind("<Alt-t>", lambda event: self.entry_pin_so1.focus())
         self.bind("<Alt-e>", lambda event: self.entry_pin_so2.focus())
 

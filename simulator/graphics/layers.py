@@ -144,12 +144,12 @@ class MobileRobotLayer(Layer):
         self.obstacle = None
 
     def check_lights(self, n_light_sens):
-        """Returns True if there are 3 light sensors and 'light 4' exists. Returns False otherwise.
+        """Returns True if there are exactly 3 light sensors and 'light 1' exists. Returns False otherwise.
         True means that it's a robot with 3 light sensors and the exterior one should be on the left."""
         # Convert the list of tuples into a dictionary for faster lookup.
         robot_dict = dict(self.robot_data)
 
-        return n_light_sens == 3 and 'light 4' in robot_dict
+        return n_light_sens == 3 and 'light 1' in robot_dict
 
     def move(self, using_keys, move_WASD):
         """

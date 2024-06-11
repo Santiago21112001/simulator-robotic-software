@@ -59,6 +59,13 @@ class MobileRobot(Robot):
         self.sound = elements.UltrasoundSensor()
 
         self.assign_pins(pins)
+        self.light_mright_only = self.__islight_mright_only(n_ligth_sens, pins)
+
+    def __islight_mright_only(self, n_ligth_sens, pins):
+        if n_ligth_sens != 3:
+            return False
+        exists_light_4 = any(pin[0] == 'light 4' for pin in pins)
+        return exists_light_4
 
     def get_data(self):
         data = None
@@ -72,15 +79,26 @@ class MobileRobot(Robot):
                 "sound_echo": self.sound.pin_echo
             }
         elif len(self.light_sensors) == 3:
-            data = {
-                "servo_left": self.servo_left.pin,
-                "servo_right": self.servo_right.pin,
-                "light_mleft": self.light_sensors[0].pin,
-                "light_left": self.light_sensors[1].pin,
-                "light_right": self.light_sensors[2].pin,
-                "sound_trig": self.sound.pin_trig,
-                "sound_echo": self.sound.pin_echo
-            }
+            if self.light_mright_only:
+                data = {
+                    "servo_left": self.servo_left.pin,
+                    "servo_right": self.servo_right.pin,
+                    "light_mright": self.light_sensors[0].pin,
+                    "light_left": self.light_sensors[1].pin,
+                    "light_right": self.light_sensors[2].pin,
+                    "sound_trig": self.sound.pin_trig,
+                    "sound_echo": self.sound.pin_echo
+                }
+            else:
+                data = {
+                    "servo_left": self.servo_left.pin,
+                    "servo_right": self.servo_right.pin,
+                    "light_mleft": self.light_sensors[0].pin,
+                    "light_left": self.light_sensors[1].pin,
+                    "light_right": self.light_sensors[2].pin,
+                    "sound_trig": self.sound.pin_trig,
+                    "sound_echo": self.sound.pin_echo
+                }
         elif len(self.light_sensors) == 4:
             data = {
                 "servo_left": self.servo_left.pin,

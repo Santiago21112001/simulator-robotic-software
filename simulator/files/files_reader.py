@@ -31,21 +31,21 @@ class RobotDataReader:
         Constructor for robot data reader
         """
 
-        self.__read_robots_file()
-        self.__read_circuits_file()
-        #self.__read__robot_data_file()
+        self.__read_files()
+        #self.__read_robot_data_file()
 
-    def __read_robots_file(self):
+    def __read_files(self):
+        # Read robots file
         with open("robots.json", "r") as file:
             data = json.load(file)
             self.robots = data['robots']
 
-    def __read_circuits_file(self):
+        # Read circuits file
         with open("circuits.json", "r") as file:
             data = json.load(file)
             self.circuits = data['circuits']
 
-    def __read__robot_data_file(self):
+    def __read_robot_data_file(self):
         with open("robot_data.json", "r") as file:
             data = json.load(file)
             self.robots = data['robots']

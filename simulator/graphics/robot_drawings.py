@@ -218,14 +218,14 @@ class LinearActuatorDrawing(RobotDrawing):
 
 class MobileRobotDrawing(RobotDrawing):
 
-    def __init__(self, drawing: drawing.Drawing, n_light_sens, left_ext_only):
+    def __init__(self, drawing: drawing.Drawing, n_light_sens, left_ext_only=False):
         """
         Constructor for mobile robot
         Arguments:
             drawing: the drawing where the robot is going
             to be represented
-            n_light_sens: the number of light sensors of the
-            robot
+            n_light_sens: the number of light sensors of the robot
+            left_ext_only: True if the robot has exactly 3 sensors and the exterior one is on the left. False otherwise.
         """
         super().__init__(drawing)
         self.img_mobrob = "assets/mobile-robot.png"
@@ -246,9 +246,11 @@ class MobileRobotDrawing(RobotDrawing):
 
         self.create_robot(left_ext_only)
 
-    def create_robot(self, left_ext_only):
+    def create_robot(self, left_ext_only=False):
         """
         Creates the robot with all of its pieces
+        Arguments:
+            left_ext_only: True if the robot has exactly 3 sensors and the exterior one is on the left. False otherwise.
         """
         self.robot = {
             "x": self.x,
@@ -257,8 +259,6 @@ class MobileRobotDrawing(RobotDrawing):
         }
         self.sensors["light"] = []
         init_diff = 30
-        # Si 4 sensores o 3 pero el exterior va a la izquierda
-        # or (self.n_light_sens == 3 and )
         if self.n_light_sens == 4 or (self.n_light_sens == 3 and left_ext_only):
             init_diff = 105
         for i in range(0, self.n_light_sens):
