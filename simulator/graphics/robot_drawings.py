@@ -656,7 +656,7 @@ class Circuit:
     def create_straights(self):
         """
         Deprecated version of 'create_pieces'. It doesn't work and will be erased in the future.
-        Creates all the circuit pieces.
+        It used to create all the circuit pieces.
         """
         x = 550
         y = 550
