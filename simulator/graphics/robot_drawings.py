@@ -643,6 +643,9 @@ class Circuit:
             elif part_type == 'polygon':
                 w = part["width"] * scale
                 self.__create_polygon(x1 * scale, y1 * scale, w)
+            elif part_type == '3way':
+                w = part["width"] * scale
+                self.__create_three_way(x1 * scale, y1 * scale, w, part["orient"])
             else:
                 orient = part['orient']
                 if orient == 'x':
@@ -898,6 +901,10 @@ class Circuit:
     def __create_polygon(self, x, y, w):
         self.circuit_parts.append(
             self.CircuitPolygon(x, y, w))
+
+    def __create_three_way(self, x, y, w, orient: str):
+        self.circuit_parts.append(
+            self.CircuitThreeWay(x, y, w, orient))
 
     def is_overlapping(self, x, y):
         """
@@ -1159,6 +1166,128 @@ class Circuit:
                 x + w, y + w,
                 x, y + w
             ]
+            drawing.draw_polygon(
+                {
+                    "points": points,
+                    "color": "black",
+                    "group": "circuit"
+                }
+            )
+
+        def check_overlap(self, px, py):
+            """
+            Check if the point (px, py) is inside the intersection, using the ray-casting algorithm.
+            Arguments:
+                px: the x coordinate of the point to check
+                py: the y coordinate of the point to check
+            Returns:
+                True if the point is inside the intersection, False otherwise
+            """
+            w = self.width
+            x = self.x
+            y = self.y
+            points = [
+                (x, y),
+                (x + w, y),
+                (x + w, y - w),
+                (x + w * 2, y - w),
+                (x + w * 2, y),
+                (x + w * 3, y),
+                (x + w * 3, y + w),
+                (x + w * 2, y + w),
+                (x + w * 2, y + w * 2),
+                (x + w, y + w * 2),
+                (x + w, y + w),
+                (x, y + w)
+            ]
+
+            n = len(points)
+            inside = False
+
+            # Ray-casting algorithm
+            xinters = 0
+            p1x, p1y = points[0]
+            for i in range(n + 1):
+                p2x, p2y = points[i % n]
+                if py > min(p1y, p2y):
+                    if py <= max(p1y, p2y):
+                        if px <= max(p1x, p2x):
+                            if p1y != p2y:
+                                xinters = (py - p1y) * (p2x - p1x) / (p2y - p1y) + p1x
+                            if p1x == p2x or px <= xinters:
+                                inside = not inside
+                p1x, p1y = p2x, p2y
+
+            return inside
+
+    class CircuitThreeWay(CircuitPart):
+        DOWN = "down"
+        UP = "up"
+        RIGHT = "right"
+        LEFT = "left"
+
+        def __init__(self, x, y, width, orient: str):
+            """
+            Constructor for circuit polygon
+            Arguments:
+                x: the x coordinate of the polygon
+                y: the y coordinate of the polygon
+                width: the width of the polygon
+            """
+            super().__init__(x, y)
+            self.width = width
+            self.orient = orient
+
+        def draw(self, drawing: drawing.Drawing):
+            w = self.width
+            x1 = self.x
+            y1 = self.y
+            orient = self.orient
+            if orient == self.UP:
+                points = [
+                    x1, y1,
+                    x1 + w, y1,
+                    x1 + w, y1 - w,
+                    x1 + w * 2, y1 - w,
+                    x1 + w * 2, y1,
+                    x1 + w * 3, y1,
+                    x1 + w * 3, y1 + w,
+                    x1, y1 + w
+                ]
+            elif orient == self.RIGHT:
+                points = [
+                    x1 + w, y1 - w,
+                    x1 + w * 2, y1 - w,
+                    x1 + w * 2, y1,
+                    x1 + w * 3, y1,
+                    x1 + w * 3, y1 + w,
+                    x1 + w * 2, y1 + w,
+                    x1 + w * 2, y1 + w * 2,
+                    x1 + w, y1 + w * 2
+                ]
+            elif orient == self.LEFT:
+                points = [
+                    x1, y1,
+                    x1 + w, y1,
+                    x1 + w, y1 - w,
+                    x1 + w * 2, y1 - w,
+                    x1 + w * 2, y1 + w * 2,
+                    x1 + w, y1 + w * 2,
+                    x1 + w, y1 + w,
+                    x1, y1 + w
+                ]
+            else:  # Down
+                points = [
+                    x1, y1,
+                    x1 + w * 3, y1,
+                    x1 + w * 3, y1 + w,
+                    x1 + w * 2, y1 + w,
+                    x1 + w * 2, y1 + w * 2,
+                    x1 + w, y1 + w * 2,
+                    x1 + w, y1 + w,
+                    x1, y1 + w
+                ]
+
             drawing.draw_polygon(
                 {
                     "points": points,
