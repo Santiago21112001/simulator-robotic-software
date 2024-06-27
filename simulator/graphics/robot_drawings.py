@@ -640,10 +640,10 @@ class Circuit:
             if part_type == 'turn':
                 self.__create_turn(x1 * scale, y1 * scale, part['dist'] * scale, part['extent'], part['start'],
                                    part['width'] * scale)
-            elif part_type == 'polygon':
+            elif part_type == 'four-way':
                 w = part["width"] * scale
-                self.__create_polygon(x1 * scale, y1 * scale, w)
-            elif part_type == '3way':
+                self.__create_four_way(x1 * scale, y1 * scale, w)
+            elif part_type == 'three-way':
                 w = part["width"] * scale
                 self.__create_three_way(x1 * scale, y1 * scale, w, part["orient"])
             else:
@@ -898,9 +898,9 @@ class Circuit:
                              angle, starting_angle, track_width)
         )
 
-    def __create_polygon(self, x, y, w):
+    def __create_four_way(self, x, y, w):
         self.circuit_parts.append(
-            self.CircuitPolygon(x, y, w))
+            self.CircuitFourWay(x, y, w))
 
     def __create_three_way(self, x, y, w, orient: str):
         self.circuit_parts.append(
@@ -1136,14 +1136,14 @@ class Circuit:
                 )
             return False
 
-    class CircuitPolygon(CircuitPart):
+    class CircuitFourWay(CircuitPart):
         def __init__(self, x, y, width):
             """
-            Constructor for circuit polygon
+            Constructor for circuit four-way intersection
             Arguments:
-                x: the x coordinate of the polygon
-                y: the y coordinate of the polygon
-                width: the width of the polygon
+                x: the x coordinate of the four-way
+                y: the y coordinate of the four-way
+                width: the width of the road
             """
             super().__init__(x, y)
             self.width = width
@@ -1228,11 +1228,11 @@ class Circuit:
 
         def __init__(self, x, y, width, orient: str):
             """
-            Constructor for circuit polygon
+            Constructor for circuit three-way intersection
             Arguments:
-                x: the x coordinate of the polygon
-                y: the y coordinate of the polygon
-                width: the width of the polygon
+                x: the x coordinate of the three-way
+                y: the y coordinate of the three-way
+                width: the width of the three-way
             """
             super().__init__(x, y)
             self.width = width
