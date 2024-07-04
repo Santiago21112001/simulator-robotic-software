@@ -9,9 +9,10 @@ a = Analysis(
     pathex=['simulator'],
     binaries=[],
     datas=[
-        ('buttons', 'buttons'), 
-        ('assets', 'assets'),
-        ('robot_data.json', '.'),
+        ('simulator/buttons', 'simulator/buttons'),
+        ('simulator/assets', 'simulator/assets'),
+        ('simulator/robots.json', 'simulator'),
+        ('simulator/circuits.json', 'simulator'),
         ('manual-usuario.pdf', '.')
     ],
     hiddenimports=[],
@@ -37,7 +38,7 @@ exe = EXE(
     strip=False,
     upx=True,
     console=True,
-    icon='assets/simlogo.ico',
+    icon='simulator/assets\simlogo.ico',
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
