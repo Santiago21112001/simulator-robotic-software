@@ -25,7 +25,19 @@ The alternative way is by using [Pyinstaller](https://pyinstaller.org/en/stable/
 
 `pyinstaller main.spec`
 
-Both ways, a build and a dist folder will be created. It is under the second one where the application's folder will be found. In this folder you can find the executable for the application. If opened, it will show two windows, a console and the program itself.
+Both ways, a build and a dist folder will be created. It is under the second one where the application's folder (main) will be found.
+
+In this folder you can find the executable for the application.
+Before opening it, you need to copy and paste in the dist/main folder the following things:
+- 	assets
+-	buttons
+-	tests
+-	circuits.json
+-	robots.json
+
+If opened, it will show two windows, a console and the program itself.
+
+The new files 'circuits.json' and 'robots.json' must always be in the same directory as the executable (dist/main).
 
 # License
 This program is distributed under the [GNU General Public License Version 3](https://github.com/diegofs29/simulator-robotic-software/blob/main/LICENSE)
