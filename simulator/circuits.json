@@ -1,7 +1,7 @@
 {
     "circuits": [
         {
-            "name": "circuit",
+            "name": "circuito",
             "parts": [
                 {
                     "type": "straight",
@@ -90,7 +90,7 @@
             ]
         },
         {
-            "name": "labyrinth",
+            "name": "laberinto",
             "parts": [
                 {
                     "type": "straight",
@@ -255,6 +255,20 @@
                     "x1": 433.0,
                     "y1": 373.0,
                     "orient": "y",
+                    "width": 20,
+                    "dist": 70,
+                    "scale": 0.2
+                }
+            ]
+        },
+        {
+            "name": "aaa",
+            "parts": [
+                {
+                    "type": "straight",
+                    "x1": 100.0,
+                    "y1": 100.0,
+                    "orient": "x",
                     "width": 20,
                     "dist": 70,
                     "scale": 0.2

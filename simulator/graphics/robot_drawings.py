@@ -614,7 +614,6 @@ class Circuit:
         """
         Creates and draws a circuit
         """
-        #self.create_straights()
         self.create_pieces()
         self.draw_circuit()
 

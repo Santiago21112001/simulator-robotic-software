@@ -5,10 +5,13 @@ import compiler.commands as commands
 import graphics.screen_updater as screen_updater
 from datetime import datetime
 
+from files.files_reader import RobotDataReader
+
 
 class RobotsController:
 
     def __init__(self, view):
+        self.rdr = RobotDataReader()
         self.view = view
         self.console: console.Console = None
         self.robot_layer: layers.Layer = None
@@ -65,6 +68,9 @@ class RobotsController:
     def configure_console(self, text_component):
         self.console = console.Console(text_component)
 
+    def is_mobile_robot(self, robot_opt):
+        return robot_opt < len(self.rdr.robots) - 2
+
     def change_robot(self, option):
         """
         Here you write the parts of the GUI that you want to show when a robot is chosen
@@ -73,38 +79,9 @@ class RobotsController:
         """
         if self.robot_layer is not None:
             self.stop()
-        # Mobile Robot, 2 infrared
-        if option == 0:
-            self.view.show_circuit_selector(True)
-            self.view.show_gamification_option_selector(False)
-            self.view.show_joystick(False)
-            self.view.show_button_keys_movement(True)
-            self.view.show_buttons_gamification(False)
-            self.view.show_key_drawing(False)
-            self.robot_layer = layers.MobileRobotLayer(2)
-            self.board = False
-        # Mobile Robot, 3 infrared
-        elif option == 1:
-            self.view.show_circuit_selector(True)
-            self.view.show_gamification_option_selector(False)
-            self.view.show_joystick(False)
-            self.view.show_button_keys_movement(True)
-            self.view.show_buttons_gamification(False)
-            self.view.show_key_drawing(False)
-            self.robot_layer = layers.MobileRobotLayer(3)
-            self.board = False
-        # Mobile Robot,  4 infrared
-        elif option == 2:
-            self.view.show_circuit_selector(True)
-            self.view.show_gamification_option_selector(False)
-            self.view.show_joystick(False)
-            self.view.show_button_keys_movement(True)
-            self.view.show_buttons_gamification(False)
-            self.view.show_key_drawing(False)
-            self.robot_layer = layers.MobileRobotLayer(4)
-            self.board = False
+        robots = self.rdr.robots
         # Linear Actuator
-        elif option == 3:
+        if option == len(robots) - 2:
             self.view.show_circuit_selector(False)
             self.view.show_gamification_option_selector(False)
             self.view.show_joystick(True)
@@ -113,8 +90,8 @@ class RobotsController:
             self.view.show_key_drawing(False)
             self.robot_layer = layers.LinearActuatorLayer()
             self.board = False
-        # Option for the Arduino Board
-        elif option == 4:
+        # Arduino Board
+        elif option == len(robots) - 1:
             self.view.show_circuit_selector(False)
             self.view.show_gamification_option_selector(True)
             self.view.show_joystick(False)
@@ -123,6 +100,16 @@ class RobotsController:
             self.view.show_key_drawing(False)
             self.robot_layer = layers.ArduinoBoardLayer()
             self.board = True
+        # Mobile Robot
+        else:
+            self.view.show_circuit_selector(True)
+            self.view.show_gamification_option_selector(False)
+            self.view.show_joystick(False)
+            self.view.show_button_keys_movement(True)
+            self.view.show_buttons_gamification(False)
+            self.view.show_key_drawing(False)
+            self.robot_layer = layers.MobileRobotLayer(option)
+            self.board = False
 
     def change_circuit(self, option):
         if self.robot_layer is not None:

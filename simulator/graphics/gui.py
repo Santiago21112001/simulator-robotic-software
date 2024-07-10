@@ -166,7 +166,7 @@ class MainApplication(tk.Tk):
     def __update_track(self):
         circuit = self.selector_bar.track_selector.current()
         robot = self.selector_bar.robot_selector.current()
-        if robot in (0, 1, 2):  # Aquí hay que mejorar los tipos de robots
+        if self.controller.is_mobile_robot(robot):  # Aquí hay que mejorar los tipos de robots
             self.controller.change_circuit(circuit)
         self.controller.configure_layer(
             self.drawing_frame.canvas, self.drawing_frame.hud_canvas)
@@ -1498,16 +1498,10 @@ class SelectorBar(tk.Frame):
         self.track_selector = ttk.Combobox(self, state="readonly")
         self.gamification_option_selector = ttk.Combobox(self, state="readonly")
 
-        self.robot_selector['values'] = ["Robot móvil (2 infrarrojos)",
-                                         "Robot móvil (3 infrarrojos)",
-                                         "Robot móvil (4 infrarrojos)",
-                                         "Actuador lineal",
-                                         "Placa arduino"]
+        rdr = files.RobotDataReader()
+        self.robot_selector['values'] = rdr.get_robots_names()
         self.robot_selector.current(0)
-        self.track_selector['values'] = [
-            "Circuito", "Laberinto", "Recta",
-            "Obstáculo", "Recta y obstáculo",
-            "Circuito con nodos"]
+        self.track_selector['values'] = rdr.get_circuits_names()
         self.track_selector.current(0)
         self.gamification_option_selector['values'] = [
             "Libre", "Desafío 1", "Desafío 2", "Desafío 3", "Desafío 4", "Desafío 5", "Desafío 6"]

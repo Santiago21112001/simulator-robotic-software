@@ -122,15 +122,16 @@ class Layer:
 
 class MobileRobotLayer(Layer):
 
-    def __init__(self, n_light_sens):
+    def __init__(self, option):
         """
         Constructor for MobileRobotLayer
         Arguments:
-            n_light_sens: the number of light sensors
+            option: the robot index in the robots file
         """
         super().__init__()
         self.hud = huds.MobileHUD()
-        self.robot_data = self.rdr.parse_robot(n_light_sens - 2)
+        self.robot_data = self.rdr.parse_robot(option)
+        n_light_sens = 2
         self.robot = robots.MobileRobot(n_light_sens, self.robot_data)
         self.left_ext_only = self.check_lights(n_light_sens)
         self.robot_drawing = robot_drawings.MobileRobotDrawing(
@@ -282,19 +283,7 @@ class MobileRobotLayer(Layer):
         Returns:
             A string with the corresponding name
         """
-        if circuit_opt == 0:
-            return "circuit"
-        elif circuit_opt == 1:
-            return "labyrinth"
-        elif circuit_opt == 2:
-            return "straight"
-        elif circuit_opt == 3:
-            return "obstacle"
-        elif circuit_opt == 4:
-            return "straight and obstacle"
-        elif circuit_opt == 5:
-            return "node circuit"
-        return "circuit"
+        return self.rdr.name_from_circuit_opt(circuit_opt)
 
     def _drawing_config(self):
         """

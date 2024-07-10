@@ -32,24 +32,32 @@ class RobotDataReader:
         """
 
         self.__read_files()
-        #self.__read_robot_data_file()
 
     def __read_files(self):
         # Read robots file
         with open("robots.json", "r") as file:
             data = json.load(file)
             self.robots = data['robots']
+            self.robots = self.__put_actuator_and_board_last(self.robots)
 
         # Read circuits file
         with open("circuits.json", "r") as file:
             data = json.load(file)
             self.circuits = data['circuits']
 
-    def __read_robot_data_file(self):
-        with open("robot_data.json", "r") as file:
-            data = json.load(file)
-            self.robots = data['robots']
-            self.circuits = data['circuits']
+    def __put_actuator_and_board_last(self, robots):
+        """Puts the actuator and the Arduino board at the end of the list"""
+        robots2 = []
+        robots_last = []
+
+        for robot in robots:
+            if robot["name"] in ["actuator", "arduinoBoard"]:
+                robots_last.append(robot)
+            else:
+                robots2.append(robot)
+
+        robots2.extend(robots_last)
+        return robots2
 
     def parse_robot(self, robot_opt):
         """
@@ -60,7 +68,7 @@ class RobotDataReader:
             A list of tuples with the corresponding pins
         """
         list_elem = []
-        robot_name = self.__name_from_opt(robot_opt)
+        robot_name = self.name_from_robot_opt(robot_opt)
         for robot in self.robots:
             if robot['name'] == robot_name:
                 for elem in robot['elements']:
@@ -81,12 +89,11 @@ class RobotDataReader:
             if circuit_name == circuit['name']:
                 if 'parts' in circuit:
                     circuit_parts = circuit['parts']
-                    #circuit_parts = self.__read_parts(circuit['parts'])
                 if 'obstacles' in circuit:
                     obstacles = self.__read_obstacles(circuit['obstacles'])
         return circuit_parts, obstacles
 
-    def __name_from_opt(self, robot_opt):
+    def name_from_robot_opt(self, robot_opt):
         """
         Gets the name given the option number
         Arguments:
@@ -94,57 +101,39 @@ class RobotDataReader:
         Returns:
             The name of the robot that has been requested
         """
-        if robot_opt == 0:
-            return "mobile2"
-        elif robot_opt == 1:
-            return "mobile3"
-        elif robot_opt == 2:
-            return "mobile4"
-        elif robot_opt == 3:
-            return "actuator"
-        elif robot_opt == 4:
-            return "arduinoBoard"
-        return "mobile2"
+        robots = self.robots
+        if robot_opt < 0:
+            robot_opt = 0
+        elif robot_opt > len(robots)-1:
+            robot_opt = len(robots)-1
+        return robots[robot_opt]["name"]
 
-    def __read_parts(self, parts):
+    def name_from_circuit_opt(self, circuit_opt):
         """
-        Reads the straights from the file
+        Gets the name given the option number
         Arguments:
-            parts: the straights with the orientation
-            an the length
+            circuit_opt: the number of the circuit
         Returns:
-            A list with the straights orientation and length
+            The name of the circuit that has been requested
         """
-        circuit_parts = []
-        for part in parts:
-            if part['type'] == 'straight':
-                circuit_parts.append(
-                    {
-                        'type': part['type'],
-                        'anchor': part['anchor next'],
-                        part['orient']: part['dist'],
-                        'save': part['save anchors']
-                    }
-                )
-            elif part['type'] == 'turn':
-                circuit_parts.append(
-                    {
-                        'type': part['type'],
-                        'starting_angle': part['starting_angle'],
-                        'angle': part['angle'],
-                        'bounding_len': part['bounding_len']
-                    }
-                )
-            elif part['type'] == 'id':
-                circuit_parts.append(
-                    {
-                        'type': part['type'],
-                        'anchor': 'end',
-                        'number': part['number'],
-                        'dist': part['dist']
-                    }
-                )
-        return circuit_parts
+        circuits = self.circuits
+        if circuit_opt < 0:
+            circuit_opt = 0
+        elif circuit_opt > len(circuits)-1:
+            circuit_opt = len(circuits) - 1
+        return circuits[circuit_opt]["name"]
+
+    def get_robots_names(self):
+        names = []
+        for robot in self.robots:
+            names.append(robot["name"])
+        return names
+
+    def get_circuits_names(self):
+        names = []
+        for circuit in self.circuits:
+            names.append(circuit["name"])
+        return names
 
     def __read_obstacles(self, obstacles):
         """
