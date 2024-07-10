@@ -131,9 +131,9 @@ class MobileRobotLayer(Layer):
         super().__init__()
         self.hud = huds.MobileHUD()
         self.robot_data = self.rdr.parse_robot(option)
-        n_light_sens = 2
+        n_light_sens = self.__count_light_occurrences(self.robot_data)
         self.robot = robots.MobileRobot(n_light_sens, self.robot_data)
-        self.left_ext_only = self.check_lights(n_light_sens)
+        self.left_ext_only = self.__check_lights(n_light_sens)
         self.robot_drawing = robot_drawings.MobileRobotDrawing(
             self.drawing, n_light_sens, self.left_ext_only)
 
@@ -144,7 +144,16 @@ class MobileRobotLayer(Layer):
         self.circuit = None
         self.obstacle = None
 
-    def check_lights(self, n_light_sens):
+    def __count_light_occurrences(self, tuple_list):
+        count = 0
+
+        for item in tuple_list:
+            if 'light' in item[0]:
+                count += 1
+
+        return count
+
+    def __check_lights(self, n_light_sens):
         """Returns True if there are exactly 3 light sensors and 'light 1' exists. Returns False otherwise.
         True means that it's a robot with 3 light sensors and the exterior one should be on the left."""
         # Convert the list of tuples into a dictionary for faster lookup.

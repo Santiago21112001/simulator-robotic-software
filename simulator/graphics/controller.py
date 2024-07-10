@@ -74,7 +74,7 @@ class RobotsController:
     def change_robot(self, option):
         """
         Here you write the parts of the GUI that you want to show when a robot is chosen
-        :param option: Selected robot (mobile: 0, 1, 2, linear, 3, Arduino: 4)
+        :param option: Selected robot (Arduino: last, linear: last-1, mobile: anything else)
         :return: None
         """
         if self.robot_layer is not None:
